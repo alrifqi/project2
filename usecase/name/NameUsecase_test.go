@@ -24,7 +24,7 @@ func provideTest(t *testing.T) func() {
 	return func() {}
 }
 
-func Test_GetNumber(t *testing.T) {
+func Test_GetName(t *testing.T) {
 	tests := []struct {
 		name               string
 		param              []string
@@ -64,7 +64,7 @@ func Test_GetNumber(t *testing.T) {
 			param:              []string{},
 			nameRepoDataReturn: []entity.NameEntity{},
 			nameRepoErrReturn:  nil,
-			expectingErr: &utils.CustomerError{
+			expectingErr: &utils.CustomError{
 				StatusCode: http.StatusNotFound,
 				Msg:        "resource with ID not exist",
 			},
@@ -75,7 +75,7 @@ func Test_GetNumber(t *testing.T) {
 			param:              []string{},
 			nameRepoDataReturn: []entity.NameEntity{},
 			nameRepoErrReturn:  errors.New("Name source data is undefined"),
-			expectingErr: &utils.CustomerError{
+			expectingErr: &utils.CustomError{
 				StatusCode: http.StatusInternalServerError,
 				Msg:        "Internal Server Error",
 			},

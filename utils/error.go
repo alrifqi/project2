@@ -1,14 +1,14 @@
 package utils
 
-type CustomerError struct {
+type CustomError struct {
 	StatusCode int
 	Msg        string
 }
 
-func (e *CustomerError) Error() string {
+func (e *CustomError) Error() string {
 	return e.Msg
 }
 
-func (e *CustomerError) ErrorStatusCode() int {
+func (e *CustomError) ErrorStatusCode() int {
 	return e.StatusCode
 }

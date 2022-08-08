@@ -20,4 +20,4 @@ lint:
 	golangci-lint run --enable-all
 
 run-tests:
-	go test -v -tags dynamic `go list ./... | grep -i 'repository\|usecase'` -coverprofile=coverage.out && go tool cover -html=coverage.out -o coverage.html
+	go test -v -tags dynamic `go list ./... | grep -i 'controller\|repository\|usecase'` -coverprofile=coverage.out && go tool cover -html=coverage.out -o coverage.html

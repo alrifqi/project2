@@ -6,8 +6,10 @@ import (
 )
 
 type Helper struct{}
-type ErrorMessage struct {
-	Msg string `json:"msg"`
+type Response struct {
+	Code int         `json:"code,omitempty"`
+	Msg  string      `json:"msg,omitempty"`
+	Data interface{} `json:"data,omitempty"`
 }
 
 type HelperIface interface {
@@ -16,26 +18,31 @@ type HelperIface interface {
 }
 
 func (h *Helper) HttpResp(w http.ResponseWriter, r *http.Request, status int, resp interface{}) {
-	dataBytes, _ := json.Marshal(resp)
-	w.WriteHeader(status)
+	message := Response{
+		Code: status,
+		Data: resp,
+	}
+	dataBytes, _ := json.Marshal(message)
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
 	w.Write(dataBytes)
 }
 
 func (h *Helper) HttpRespError(w http.ResponseWriter, r *http.Request, err error) {
 	var status int
-	if e, ok := err.(*CustomerError); ok {
+	if e, ok := err.(*CustomError); ok {
 		status = e.ErrorStatusCode()
 	} else {
 		status = http.StatusInternalServerError
 	}
-	message := ErrorMessage{
-		Msg: err.Error(),
+	message := Response{
+		Msg:  err.Error(),
+		Code: status,
 	}
 
 	dataBytes, err := json.Marshal(message)
-	w.WriteHeader(status)
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
 	w.Write(dataBytes)
 }
 

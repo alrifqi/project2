@@ -22,14 +22,14 @@ func (u *NameUsecase) GetName(param []string) ([]entity.NameEntity, error) {
 	}
 	data, err := u.nameRepo.GetName(formattedParam)
 	if err != nil {
-		return data, &utils.CustomerError{
+		return data, &utils.CustomError{
 			StatusCode: http.StatusInternalServerError,
 			Msg:        "Internal Server Error",
 		}
 	}
 
 	if len(data) < 1 {
-		return data, &utils.CustomerError{
+		return data, &utils.CustomError{
 			StatusCode: http.StatusNotFound,
 			Msg:        "resource with ID not exist",
 		}
