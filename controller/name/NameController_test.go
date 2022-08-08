@@ -1,7 +1,6 @@
 package name
 
 import (
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -134,15 +133,12 @@ func Test_GetName(t *testing.T) {
 			res := w.Result()
 			defer res.Body.Close()
 			data, _ := ioutil.ReadAll(res.Body)
-			fmt.Println(string(data))
 			if !reflect.DeepEqual(tc.expectingRespStatusCode, res.StatusCode) {
 				t.Errorf("expected (%b), got (%b)", res.StatusCode, tc.expectingRespStatusCode)
 			}
 
 			if !reflect.DeepEqual(tc.expectingResult, string(data)) {
 				t.Errorf("expected (%s), got (%s)", tc.expectingResult, string(data))
-			} else {
-				fmt.Println("SUCCESS")
 			}
 		})
 	}
