@@ -26,7 +26,16 @@ func (c *NameController) GetName(w http.ResponseWriter, r *http.Request) {
 		payload = strings.Split(params[0], ",")
 	}
 
-	data, err := c.nameUsecase.GetName(payload)
+	formattedPayload, err := c.validateGetName(payload)
+	if err != nil {
+		c.helper.HttpRespError(w, r, &utils.CustomError{
+			StatusCode: http.StatusBadRequest,
+			Msg:        "invalid or empty ID: " + strings.Join(formattedPayload, ","),
+		})
+		return
+	}
+
+	data, err := c.nameUsecase.GetName(formattedPayload)
 	if err != nil {
 		c.helper.HttpRespError(w, r, err)
 		return

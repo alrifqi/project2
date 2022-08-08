@@ -75,7 +75,7 @@ func Test_GetName(t *testing.T) {
 					RawQuery: "",
 				},
 			},
-			urlParam:              "/name?id=x",
+			urlParam:              "/name?id=1111",
 			nameUsecaseDataReturn: []entity.NameEntity{},
 			nameUsecaseErrReturn: &utils.CustomError{
 				StatusCode: http.StatusNotFound,
@@ -99,17 +99,17 @@ func Test_GetName(t *testing.T) {
 				},
 			},
 			nameUsecaseErrReturn:    nil,
-			expectingResult:         "{\"code\":200,\"data\":[{\"id\":1,\"name\":\"A\"}]}",
-			expectingRespStatusCode: http.StatusOK,
+			expectingResult:         "{\"code\":400,\"msg\":\"invalid or empty ID: x\"}",
+			expectingRespStatusCode: http.StatusBadRequest,
 		},
 		{
-			name: "Error Internal Server Error because source data undefine",
+			name: "Error Internal Server Error because source data undefined",
 			param: http.Request{
 				URL: &url.URL{
 					RawQuery: "",
 				},
 			},
-			urlParam:              "/name?id=x",
+			urlParam:              "/name",
 			nameUsecaseDataReturn: []entity.NameEntity{},
 			nameUsecaseErrReturn: &utils.CustomError{
 				StatusCode: http.StatusInternalServerError,
