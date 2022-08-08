@@ -1,6 +1,7 @@
 package name
 
 import (
+	"errors"
 	"strconv"
 
 	"github.com/alrifqi/tokenomy-test/entity"
@@ -15,6 +16,10 @@ type NameRepositoryIface interface {
 func (r *NameRepository) GetName(param map[string]string) ([]entity.NameEntity, error) {
 	var data []entity.NameEntity
 	data = entity.NameDataDummy
+
+	if len(data) < 1 {
+		return data, errors.New("Name source data is undefined")
+	}
 
 	if len(param) == 0 {
 		return data, nil

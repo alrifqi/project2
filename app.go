@@ -16,7 +16,7 @@ func main() {
 	fmt.Println("Start Application")
 
 	// name route
-	http.HandleFunc("/name", ctrl.NameController.GetNumber)
+	http.HandleFunc("/name", ctrl.NameController.GetName)
 
-	fmt.Println(http.ListenAndServe(":8080", nil))
+	http.ListenAndServe(":8080", nil)
 }

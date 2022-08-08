@@ -9,7 +9,7 @@ import (
 )
 
 type NameControllerIface interface {
-	GetNumber(w http.ResponseWriter, r *http.Request)
+	GetName(w http.ResponseWriter, r *http.Request)
 }
 
 type NameController struct {
@@ -17,7 +17,7 @@ type NameController struct {
 	helper      utils.HelperIface
 }
 
-func (c *NameController) GetNumber(w http.ResponseWriter, r *http.Request) {
+func (c *NameController) GetName(w http.ResponseWriter, r *http.Request) {
 	var payload []string
 	query := r.URL.Query()
 
@@ -26,10 +26,14 @@ func (c *NameController) GetNumber(w http.ResponseWriter, r *http.Request) {
 		payload = strings.Split(params[0], ",")
 	}
 
-	_, _ = c.validateGetName(payload)
-
-	data, _ := c.nameUsecase.GetNumber(payload)
-	c.helper.HttpResp(w, r, http.StatusOK, data)
+	data, err := c.nameUsecase.GetName(payload)
+	if err != nil {
+		c.helper.HttpRespError(w, r, err)
+		return
+	} else {
+		c.helper.HttpResp(w, r, http.StatusOK, data)
+		return
+	}
 }
 
 func InitNameController(

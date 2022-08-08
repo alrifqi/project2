@@ -1,1 +1,5 @@
 .vscode
+coverage.out
+coverage.html
+dist/
+tmp/

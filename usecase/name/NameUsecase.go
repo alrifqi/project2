@@ -9,24 +9,27 @@ import (
 )
 
 type NameUsecaseIface interface {
-	GetNumber(param []string) ([]entity.NameEntity, error)
+	GetName(param []string) ([]entity.NameEntity, error)
 }
 type NameUsecase struct {
 	nameRepo name.NameRepositoryIface
 }
 
-func (u *NameUsecase) GetNumber(param []string) ([]entity.NameEntity, error) {
+func (u *NameUsecase) GetName(param []string) ([]entity.NameEntity, error) {
 	formattedParam := map[string]string{}
 	for _, p := range param {
 		formattedParam[p] = p
 	}
 	data, err := u.nameRepo.GetName(formattedParam)
 	if err != nil {
-		return data, err
+		return data, &utils.CustomerError{
+			StatusCode: http.StatusInternalServerError,
+			Msg:        "Internal Server Error",
+		}
 	}
 
 	if len(data) < 1 {
-		return data, &utils.DataNotFoundError{
+		return data, &utils.CustomerError{
 			StatusCode: http.StatusNotFound,
 			Msg:        "resource with ID not exist",
 		}
