@@ -1,5 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/mnt/b3edd20e-9481-4525-b11a-64e5a9c61fe6/Interview/tokenomy'
-GOARCH=amd64 GOOS=darwin go build -o app -darwin *.go
-make: Leaving directory '/mnt/b3edd20e-9481-4525-b11a-64e5a9c61fe6/Interview/tokenomy'
- 
