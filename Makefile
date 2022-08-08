@@ -1,11 +1,10 @@
 BINARY_NAME=app
 
 build:
-	GOARCH=amd64 GOOS=darwin go build -o ${BINARY_NAME} -darwin *.go
-
+	GOARCH=amd64 GOOS=darwin go build -o ./dist/${BINARY_NAME} app.go
 
 run:
-	./${BINARY_NAME}
+	@./dist/app
 
 build_and_run: build run
 
