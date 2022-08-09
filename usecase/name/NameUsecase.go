@@ -8,13 +8,17 @@ import (
 	"github.com/alrifqi/tokenomy-test/utils"
 )
 
+// NameUsecaseIface for give required method in NameUsecase method
 type NameUsecaseIface interface {
 	GetName(param []string) ([]entity.NameEntity, error)
 }
+
+// NameUsecase is representation of attribute of NameUsecase
 type NameUsecase struct {
 	nameRepo name.NameRepositoryIface
 }
 
+// Func for processing name from source & give response to controller
 func (u *NameUsecase) GetName(param []string) ([]entity.NameEntity, error) {
 	formattedParam := map[string]string{}
 	for _, p := range param {
@@ -37,6 +41,7 @@ func (u *NameUsecase) GetName(param []string) ([]entity.NameEntity, error) {
 	return data, nil
 }
 
+// Func for initiate NameUsecase Module
 func InitNameUsecase(
 	nameRepo name.NameRepositoryIface,
 ) NameUsecaseIface {

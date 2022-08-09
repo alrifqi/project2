@@ -17,6 +17,8 @@ type NameController struct {
 	helper      utils.HelperIface
 }
 
+// Handler for route /name
+// Func will do validation before call usecase method
 func (c *NameController) GetName(w http.ResponseWriter, r *http.Request) {
 	var payload []string
 	query := r.URL.Query()

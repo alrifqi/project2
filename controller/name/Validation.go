@@ -4,6 +4,9 @@ import (
 	"strconv"
 )
 
+// Func for validate given query parameter
+// will check if given parameter is invalid (criteria invalid: non-number parameter)
+// it will return formatted/mapped parameter into string and error
 func (v *NameController) validateGetName(payloads []string) ([]string, error) {
 	var formattedPayload []string
 	var invalidPayload []string

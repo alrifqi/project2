@@ -17,6 +17,7 @@ type HelperIface interface {
 	HttpRespError(w http.ResponseWriter, r *http.Request, err error)
 }
 
+// func for process and returning non-error Http Response
 func (h *Helper) HttpResp(w http.ResponseWriter, r *http.Request, status int, resp interface{}) {
 	message := Response{
 		Code: status,
@@ -28,6 +29,7 @@ func (h *Helper) HttpResp(w http.ResponseWriter, r *http.Request, status int, re
 	w.Write(dataBytes)
 }
 
+// func for process and returning error Http Response
 func (h *Helper) HttpRespError(w http.ResponseWriter, r *http.Request, err error) {
 	var status int
 	if e, ok := err.(*CustomError); ok {
@@ -46,6 +48,7 @@ func (h *Helper) HttpRespError(w http.ResponseWriter, r *http.Request, err error
 	w.Write(dataBytes)
 }
 
+// func for initiate Helper
 func InitHelper() HelperIface {
 	return &Helper{}
 }

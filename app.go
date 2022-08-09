@@ -10,9 +10,9 @@ import (
 )
 
 func main() {
-	repo := repository.Init()    // init repository
-	uc := *usecase.Init(repo)    // init usecase
-	ctrl := *controller.Init(uc) // init controller
+	repo := repository.Init()    // init repository module
+	uc := *usecase.Init(repo)    // init usecase module and inject repo as dependencies of usecase module
+	ctrl := *controller.Init(uc) // init controller module and inject usecase as dependencies of controller module
 	fmt.Println("Start Application")
 
 	// name route
