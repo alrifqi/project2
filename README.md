@@ -1,5 +1,6 @@
 # Dependencies
-dependencies for this project is only [air](https://github.com/cosmtrek/air) for auto reload app in development. to install it just type
+- golang 1.18
+- [air](https://github.com/cosmtrek/air) for auto reload app in development. to install it just type:
 
     go mod download
     
@@ -14,11 +15,17 @@ dependencies for this project is only [air](https://github.com/cosmtrek/air) for
         ├── error.go                # custom error function
         ├── helper.go               # helper for handler returning response
     ├── .air.toml
-    ├── Makefile
-    ├── app.go
+    ├── Makefile                    # make file for run some command the app like run dev, run test etc
+    ├── app.go                      # main endpoint file to run the application
     ├── go.mod
     ├── go.sum
     └── README.md
+    
+So the flow is:
+```mermaid
+graph LR
+A[main.go] --> B[Controller] --> C[Usecase] --> D[Repository]
+```
  
 # Run In Dev Mode
 to run in dev mode, type:
